@@ -1,0 +1,9 @@
+park_id,name,lat,lon,q_scenery,q_space,q_facilities,q_tree_cover,q_flatness,parking_type,parking_cost_per_day,parking_spaces,in_caz,notes
+queens_square,Queen Square,51.450494,-2.594867,2,2,4,2,4,paid,6,scarce,TRUE,"Very central, often busy"
+brandon_hill,Brandon Hill,51.453,-2.606,5,4,3,4,1,street,6,scarce,TRUE,"Cabot Tower and city views, tricky parking"
+clifton_downs,Clifton Downs,51.468,-2.625,4,5,2,3,5,free,0,plenty,FALSE,Wide open grassland near the gorge
+eastville_park,Eastville Park,51.47,-2.56,3,5,3,2,3,free,0,plenty,FALSE,"Lake, river and big open field"
+st_andrews_park,St Andrews Park,51.475,-2.588,3,3,4,4,2,free,0,limited,FALSE, "Popular family park with playground and cafe"
+victoria_park,Victoria Park,51.437,-2.585,3,5,2,4,4,free,0,plenty,FALSE, "South Bristol park near temple meads"
+castle_park,Castle Park,51.456,-2.59,3,2,4,2,3,paid,6,scarce,TRUE,"Central riverside park, inside the Clean Air Zone"
+stoke_park,Stoke Park,51.488668,-2.556533,3,5,2,3,3,free,0,plenty,FALSE, "Large park next to the M32"

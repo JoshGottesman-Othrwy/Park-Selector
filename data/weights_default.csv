@@ -1,0 +1,7 @@
+criterion,weight
+quality,0.30
+walk_time,0.10
+drive_time,0.20
+transit_time,0.15
+parking,0.15
+caz,0.10
