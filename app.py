@@ -43,17 +43,25 @@ PRESETS: dict[str, dict] = {
                        "drive_no_caz": 0.0, "transit_time": 0.55, "parking": 0.0},
         "quality": _EQUAL_QUALITY,
     },
-    "Family": {
-        "criterion": {"quality": 0.40, "walk_time": 0.10, "drive_time": 0.20,
-                       "drive_no_caz": 0.0, "transit_time": 0.10, "parking": 0.20},
-        # Flat, open, well-equipped ground for kids and games.
-        "quality": {"q_scenery": 1, "q_space": 2, "q_facilities": 2, "q_tree_cover": 1, "q_flatness": 3},
+    "Acrobat": {
+        # Cares most about park quality, and avoids the CAZ (weights
+        # drive_no_caz instead of plain drive time, so CAZ parks drop out).
+        "criterion": {"quality": 0.50, "walk_time": 0.05, "drive_time": 0.0,
+                       "drive_no_caz": 0.20, "transit_time": 0.10, "parking": 0.15},
+        # Flat, spacious, shaded ground for acro / tumbling.
+        "quality": {"q_scenery": 1, "q_space": 2, "q_facilities": 1, "q_tree_cover": 2, "q_flatness": 3},
     },
     "Shade & scenery": {
         "criterion": {"quality": 0.50, "walk_time": 0.05, "drive_time": 0.25,
                        "drive_no_caz": 0.0, "transit_time": 0.10, "parking": 0.10},
         # Leafy, good-looking spots for a picnic in the shade.
         "quality": {"q_scenery": 3, "q_space": 1, "q_facilities": 1, "q_tree_cover": 3, "q_flatness": 1},
+    },
+    "Overall transport": {
+        # A compromise across every way of getting there, with quality de-emphasised.
+        "criterion": {"quality": 0.10, "walk_time": 0.15, "drive_time": 0.20,
+                       "drive_no_caz": 0.15, "transit_time": 0.20, "parking": 0.20},
+        "quality": _EQUAL_QUALITY,
     },
 }
 
