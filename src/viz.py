@@ -18,20 +18,26 @@ from .scoring import CRITERIA, travel_matrix
 # One shared colour scale across every view: red (worst) -> green (best).
 SCORE_SCALE = "RdYlGn"
 
+MODE_LABELS = {
+    "walk": "Walk",
+    "drive": "Drive",
+    "transit": "Transit",
+    "drive_no_caz": "Drive (no CAZ)",
+}
 QUALITY_LABELS = {
     "q_scenery": "Scenery",
     "q_space": "Space",
     "q_facilities": "Facilities",
-    "q_climbing": "Climbing",
-    "q_family": "Family",
+    "q_tree_cover": "Tree cover",
+    "q_flatness": "Flatness",
 }
 CRITERION_LABELS = {
     "quality": "Quality",
     "walk_time": "Walk time",
     "drive_time": "Drive time",
+    "drive_no_caz": "Drive (no CAZ)",
     "transit_time": "Transit time",
     "parking": "Parking",
-    "caz": "CAZ charge",
 }
 
 

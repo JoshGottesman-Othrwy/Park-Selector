@@ -1,5 +1,6 @@
-streamlit>=1.36
-pandas>=2.0
-plotly>=5.20
-pydeck>=0.9
-pytest>=8.0
+# Runtime dependencies (what Streamlit Community Cloud installs).
+# Upper bounds guard an unattended deploy against breaking major releases.
+streamlit>=1.58,<2
+pandas>=2.2,<3
+plotly>=6.0,<7
+pydeck>=0.9,<1

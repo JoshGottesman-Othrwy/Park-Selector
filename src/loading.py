@@ -14,8 +14,12 @@ import pandas as pd
 
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 
-MODES = ["walk", "drive", "transit"]
-QUALITY_COLS = ["q_scenery", "q_space", "q_facilities", "q_climbing", "q_family"]
+# Core modes are reachable for every park and must be fully populated.
+CORE_MODES = ["walk", "drive", "transit"]
+# "drive_no_caz" is driving while avoiding the Clean Air Zone: it is N/A (blank)
+# for parks inside the CAZ, so it is validated separately from the core modes.
+MODES = [*CORE_MODES, "drive_no_caz"]
+QUALITY_COLS = ["q_scenery", "q_space", "q_facilities", "q_tree_cover", "q_flatness"]
 PARKING_TYPES = {"free", "paid", "street", "none"}
 PARKING_SPACES = {"plenty", "limited", "scarce"}
 
@@ -60,9 +64,19 @@ def load_dataset(data_dir: Path | str = DATA_DIR) -> Dataset:
     """
     data_dir = Path(data_dir)
 
-    parks = pd.read_csv(data_dir / "parks.csv")
-    origins = pd.read_csv(data_dir / "origins.csv")
-    travel = pd.read_csv(data_dir / "travel_times.csv")
+    # skipinitialspace tolerates spaces after commas in hand-edited CSVs.
+    parks = pd.read_csv(data_dir / "parks.csv", skipinitialspace=True)
+    origins = pd.read_csv(data_dir / "origins.csv", skipinitialspace=True)
+    travel = pd.read_csv(data_dir / "travel_times.csv", skipinitialspace=True)
+
+    # Trim any stray surrounding whitespace from string key/label columns.
+    for df, cols in [
+        (parks, ["park_id", "name"]),
+        (origins, ["origin_id", "name"]),
+        (travel, ["origin_id", "park_id", "mode"]),
+    ]:
+        for col in cols:
+            df[col] = df[col].astype(str).str.strip()
 
     _require_columns(parks, PARK_COLS, "parks.csv")
     _require_columns(origins, ORIGIN_COLS, "origins.csv")
@@ -74,7 +88,8 @@ def load_dataset(data_dir: Path | str = DATA_DIR) -> Dataset:
         parks[col] = pd.to_numeric(parks[col])
     parks["parking_cost_per_day"] = pd.to_numeric(parks["parking_cost_per_day"])
     origins["weight"] = pd.to_numeric(origins["weight"])
-    travel["duration_min"] = pd.to_numeric(travel["duration_min"])
+    # Blank durations (N/A, e.g. drive_no_caz for CAZ parks) become NaN.
+    travel["duration_min"] = pd.to_numeric(travel["duration_min"], errors="coerce")
 
     # --- value checks ------------------------------------------------------
     if parks["park_id"].duplicated().any():
@@ -110,7 +125,32 @@ def load_dataset(data_dir: Path | str = DATA_DIR) -> Dataset:
     if actual != expected:
         raise DataValidationError(
             f"travel_times.csv should have {expected} origin×park×mode rows, found {actual}. "
-            "Every park needs walk/drive/transit times from every origin."
+            "Every park needs a row for each of "
+            f"{MODES} from every origin (drive_no_caz may be blank for CAZ parks)."
+        )
+
+    # Core modes must be reachable (filled) for every origin×park.
+    core = travel[travel["mode"].isin(CORE_MODES)]
+    if core["duration_min"].isna().any():
+        raise DataValidationError(
+            "walk/drive/transit durations must be filled for every origin×park."
+        )
+
+    # drive_no_caz must be N/A (blank) for parks inside the CAZ, and filled for
+    # parks outside it (those are the parks you can drive to without paying).
+    caz_ids = set(parks[parks["in_caz"]]["park_id"])
+    dnc = travel[travel["mode"] == "drive_no_caz"]
+    caz_filled = dnc[dnc["park_id"].isin(caz_ids) & dnc["duration_min"].notna()]
+    if not caz_filled.empty:
+        raise DataValidationError(
+            "drive_no_caz must be blank (N/A) for parks inside the CAZ: "
+            f"{sorted(set(caz_filled['park_id']))}"
+        )
+    non_caz_blank = dnc[~dnc["park_id"].isin(caz_ids) & dnc["duration_min"].isna()]
+    if not non_caz_blank.empty:
+        raise DataValidationError(
+            "drive_no_caz is missing for non-CAZ parks: "
+            f"{sorted(set(non_caz_blank['park_id']))}"
         )
 
     default_weights = _load_default_weights(data_dir)

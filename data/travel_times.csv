@@ -1,121 +1,257 @@
 origin_id,park_id,mode,duration_min,distance_km
-bedminster,ashton_court,walk,42.4,3.4
-bedminster,ashton_court,drive,12.5,3.67
-bedminster,ashton_court,transit,24.9,3.94
+bedminster,queens_square,walk,27.1,2.17
+bedminster,queens_square,drive,9.4,2.34
+bedminster,queens_square,transit,18.8,2.52
+bedminster,queens_square,drive_no_caz,,
 bedminster,brandon_hill,walk,32.5,2.6
 bedminster,brandon_hill,drive,10.5,2.8
 bedminster,brandon_hill,transit,20.9,3.01
+bedminster,brandon_hill,drive_no_caz,,
 bedminster,clifton_downs,walk,64.4,5.15
 bedminster,clifton_downs,drive,16.8,5.56
 bedminster,clifton_downs,transit,33.6,5.97
+bedminster,clifton_downs,drive_no_caz,21.0,6.38
 bedminster,eastville_park,walk,73.4,5.87
 bedminster,eastville_park,drive,18.6,6.34
 bedminster,eastville_park,transit,37.2,6.81
+bedminster,eastville_park,drive_no_caz,23.2,7.28
 bedminster,st_andrews_park,walk,70.3,5.63
 bedminster,st_andrews_park,drive,18.0,6.08
 bedminster,st_andrews_park,transit,36.0,6.53
+bedminster,st_andrews_park,drive_no_caz,22.4,6.98
 bedminster,victoria_park,walk,14.5,1.16
 bedminster,victoria_park,drive,6.9,1.25
 bedminster,victoria_park,transit,13.8,1.35
+bedminster,victoria_park,drive_no_caz,8.6,1.44
 bedminster,castle_park,walk,37.5,3.0
 bedminster,castle_park,drive,11.5,3.24
 bedminster,castle_park,transit,22.9,3.48
-bedminster,blaise_castle,walk,124.1,9.93
-bedminster,blaise_castle,drive,28.7,10.72
-bedminster,blaise_castle,transit,57.3,11.51
-bishopston,ashton_court,walk,70.5,5.64
-bishopston,ashton_court,drive,18.1,6.09
-bishopston,ashton_court,transit,36.0,6.54
+bedminster,castle_park,drive_no_caz,,
+bedminster,stoke_park,walk,103.5,8.28
+bedminster,stoke_park,drive,24.6,8.94
+bedminster,stoke_park,transit,49.2,9.6
+bedminster,stoke_park,drive_no_caz,30.7,10.27
+bishopston,queens_square,walk,47.8,3.83
+bishopston,queens_square,drive,13.5,4.13
+bishopston,queens_square,transit,27.0,4.44
+bishopston,queens_square,drive_no_caz,,
 bishopston,brandon_hill,walk,45.7,3.65
 bishopston,brandon_hill,drive,13.1,3.94
 bishopston,brandon_hill,transit,26.2,4.24
+bishopston,brandon_hill,drive_no_caz,,
 bishopston,clifton_downs,walk,38.7,3.1
 bishopston,clifton_downs,drive,11.7,3.35
 bishopston,clifton_downs,transit,23.4,3.6
+bishopston,clifton_downs,drive_no_caz,14.6,3.84
 bishopston,eastville_park,walk,38.3,3.07
 bishopston,eastville_park,drive,11.6,3.31
 bishopston,eastville_park,transit,23.2,3.56
+bishopston,eastville_park,drive_no_caz,14.5,3.8
 bishopston,st_andrews_park,walk,7.5,0.6
 bishopston,st_andrews_park,drive,5.5,0.65
 bishopston,st_andrews_park,transit,11.0,0.7
+bishopston,st_andrews_park,drive_no_caz,6.9,0.75
 bishopston,victoria_park,walk,71.8,5.74
 bishopston,victoria_park,drive,18.3,6.2
 bishopston,victoria_park,transit,36.5,6.66
+bishopston,victoria_park,drive_no_caz,22.8,7.12
 bishopston,castle_park,walk,38.4,3.07
 bishopston,castle_park,drive,11.6,3.31
 bishopston,castle_park,transit,23.3,3.56
-bishopston,blaise_castle,walk,61.3,4.9
-bishopston,blaise_castle,drive,16.2,5.3
-bishopston,blaise_castle,transit,32.4,5.69
-fishponds,ashton_court,walk,123.1,9.85
-fishponds,ashton_court,drive,28.6,10.64
-fishponds,ashton_court,transit,57.0,11.43
+bishopston,castle_park,drive_no_caz,,
+bishopston,stoke_park,walk,43.6,3.49
+bishopston,stoke_park,drive,12.7,3.77
+bishopston,stoke_park,transit,25.3,4.05
+bishopston,stoke_park,drive_no_caz,15.8,4.32
+fishponds,queens_square,walk,84.8,6.79
+fishponds,queens_square,drive,20.9,7.33
+fishponds,queens_square,transit,41.7,7.87
+fishponds,queens_square,drive_no_caz,,
 fishponds,brandon_hill,walk,91.9,7.35
 fishponds,brandon_hill,drive,22.3,7.94
 fishponds,brandon_hill,transit,44.5,8.53
+fishponds,brandon_hill,drive_no_caz,,
 fishponds,clifton_downs,walk,100.4,8.03
 fishponds,clifton_downs,drive,24.0,8.67
 fishponds,clifton_downs,transit,47.9,9.32
+fishponds,clifton_downs,drive_no_caz,29.9,9.96
 fishponds,eastville_park,walk,34.2,2.73
 fishponds,eastville_park,drive,10.8,2.95
 fishponds,eastville_park,transit,21.6,3.17
+fishponds,eastville_park,drive_no_caz,13.5,3.39
 fishponds,st_andrews_park,walk,58.6,4.69
 fishponds,st_andrews_park,drive,15.7,5.07
 fishponds,st_andrews_park,transit,31.3,5.44
+fishponds,st_andrews_park,drive_no_caz,19.5,5.82
 fishponds,victoria_park,walk,95.1,7.61
 fishponds,victoria_park,drive,23.0,8.22
 fishponds,victoria_park,transit,45.8,8.82
+fishponds,victoria_park,drive_no_caz,28.6,9.43
 fishponds,castle_park,walk,74.7,5.98
 fishponds,castle_park,drive,18.9,6.46
 fishponds,castle_park,transit,37.7,6.93
-fishponds,blaise_castle,walk,112.1,8.97
-fishponds,blaise_castle,drive,26.4,9.69
-fishponds,blaise_castle,transit,52.6,10.4
-henleaze,ashton_court,walk,81.7,6.54
-henleaze,ashton_court,drive,20.3,7.06
-henleaze,ashton_court,transit,40.5,7.58
+fishponds,castle_park,drive_no_caz,,
+fishponds,stoke_park,walk,26.0,2.08
+fishponds,stoke_park,drive,9.2,2.25
+fishponds,stoke_park,transit,18.3,2.41
+fishponds,stoke_park,drive_no_caz,11.5,2.58
+henleaze,queens_square,walk,72.5,5.8
+henleaze,queens_square,drive,18.5,6.26
+henleaze,queens_square,transit,36.8,6.73
+henleaze,queens_square,drive_no_caz,,
 henleaze,brandon_hill,walk,66.2,5.3
 henleaze,brandon_hill,drive,17.2,5.72
 henleaze,brandon_hill,transit,34.3,6.15
+henleaze,brandon_hill,drive_no_caz,,
 henleaze,clifton_downs,walk,42.7,3.42
 henleaze,clifton_downs,drive,12.5,3.69
 henleaze,clifton_downs,transit,25.0,3.97
+henleaze,clifton_downs,drive_no_caz,15.6,4.24
 henleaze,eastville_park,walk,66.2,5.29
 henleaze,eastville_park,drive,17.2,5.72
 henleaze,eastville_park,transit,34.3,6.14
+henleaze,eastville_park,drive_no_caz,21.4,6.56
 henleaze,st_andrews_park,walk,37.3,2.98
 henleaze,st_andrews_park,drive,11.4,3.22
 henleaze,st_andrews_park,transit,22.8,3.46
+henleaze,st_andrews_park,drive_no_caz,14.3,3.7
 henleaze,victoria_park,walk,98.0,7.84
 henleaze,victoria_park,drive,23.5,8.46
 henleaze,victoria_park,transit,47.0,9.09
+henleaze,victoria_park,drive_no_caz,29.3,9.72
 henleaze,castle_park,walk,64.9,5.19
 henleaze,castle_park,drive,16.9,5.61
 henleaze,castle_park,transit,33.8,6.02
-henleaze,blaise_castle,walk,31.6,2.53
-henleaze,blaise_castle,drive,10.3,2.73
-henleaze,blaise_castle,transit,20.6,2.94
-totterdown,ashton_court,walk,63.7,5.09
-totterdown,ashton_court,drive,16.7,5.5
-totterdown,ashton_court,transit,33.3,5.91
+henleaze,castle_park,drive_no_caz,,
+henleaze,stoke_park,walk,59.1,4.72
+henleaze,stoke_park,drive,15.8,5.1
+henleaze,stoke_park,transit,31.5,5.48
+henleaze,stoke_park,drive_no_caz,19.6,5.86
+totterdown,queens_square,walk,28.2,2.26
+totterdown,queens_square,drive,9.6,2.44
+totterdown,queens_square,transit,19.2,2.62
+totterdown,queens_square,drive_no_caz,,
 totterdown,brandon_hill,walk,40.5,3.24
 totterdown,brandon_hill,drive,12.1,3.5
 totterdown,brandon_hill,transit,24.1,3.75
+totterdown,brandon_hill,drive_no_caz,,
 totterdown,clifton_downs,walk,72.8,5.82
 totterdown,clifton_downs,drive,18.5,6.29
 totterdown,clifton_downs,transit,36.9,6.75
+totterdown,clifton_downs,drive_no_caz,23.0,7.22
 totterdown,eastville_park,walk,54.6,4.37
 totterdown,eastville_park,drive,14.9,4.72
 totterdown,eastville_park,transit,29.7,5.07
+totterdown,eastville_park,drive_no_caz,18.5,5.42
 totterdown,st_andrews_park,walk,62.4,4.99
 totterdown,st_andrews_park,drive,16.4,5.39
 totterdown,st_andrews_park,transit,32.8,5.79
+totterdown,st_andrews_park,drive_no_caz,20.5,6.19
 totterdown,victoria_park,walk,12.0,0.96
 totterdown,victoria_park,drive,6.4,1.04
 totterdown,victoria_park,transit,12.8,1.12
+totterdown,victoria_park,drive_no_caz,8.0,1.19
 totterdown,castle_park,walk,32.2,2.58
 totterdown,castle_park,drive,10.4,2.78
 totterdown,castle_park,transit,20.8,2.99
-totterdown,blaise_castle,walk,126.2,10.09
-totterdown,blaise_castle,drive,29.2,10.9
-totterdown,blaise_castle,transit,58.2,11.71
+totterdown,castle_park,drive_no_caz,,
+totterdown,stoke_park,walk,86.9,6.95
+totterdown,stoke_park,drive,21.3,7.51
+totterdown,stoke_park,transit,42.6,8.06
+totterdown,stoke_park,drive_no_caz,26.5,8.62
+easton,queens_square,walk,41.5,3.32
+easton,queens_square,drive,12.3,3.59
+easton,queens_square,transit,24.5,3.85
+easton,queens_square,drive_no_caz,,
+easton,brandon_hill,walk,50.2,4.02
+easton,brandon_hill,drive,14.0,4.34
+easton,brandon_hill,transit,28.0,4.66
+easton,brandon_hill,drive_no_caz,,
+easton,clifton_downs,walk,67.7,5.41
+easton,clifton_downs,drive,17.5,5.85
+easton,clifton_downs,transit,34.9,6.28
+easton,clifton_downs,drive_no_caz,21.8,6.71
+easton,eastville_park,walk,11.4,0.91
+easton,eastville_park,drive,6.3,0.98
+easton,eastville_park,transit,12.5,1.06
+easton,eastville_park,drive_no_caz,7.8,1.13
+easton,st_andrews_park,walk,33.5,2.68
+easton,st_andrews_park,drive,10.7,2.9
+easton,st_andrews_park,transit,21.3,3.11
+easton,st_andrews_park,drive_no_caz,13.3,3.33
+easton,victoria_park,walk,52.2,4.18
+easton,victoria_park,drive,14.4,4.51
+easton,victoria_park,transit,28.8,4.84
+easton,victoria_park,drive_no_caz,17.9,5.18
+easton,castle_park,walk,32.3,2.58
+easton,castle_park,drive,10.4,2.79
+easton,castle_park,transit,20.8,2.99
+easton,castle_park,drive_no_caz,,
+easton,stoke_park,walk,43.9,3.52
+easton,stoke_park,drive,12.8,3.8
+easton,stoke_park,transit,25.5,4.08
+easton,stoke_park,drive_no_caz,15.9,4.36
+clifton,queens_square,walk,27.5,2.2
+clifton,queens_square,drive,9.5,2.38
+clifton,queens_square,transit,18.9,2.55
+clifton,queens_square,drive_no_caz,,
+clifton,brandon_hill,walk,14.7,1.18
+clifton,brandon_hill,drive,6.9,1.27
+clifton,brandon_hill,transit,13.9,1.37
+clifton,brandon_hill,drive_no_caz,,
+clifton,clifton_downs,walk,21.1,1.69
+clifton,clifton_downs,drive,8.2,1.82
+clifton,clifton_downs,transit,16.4,1.96
+clifton,clifton_downs,drive_no_caz,10.2,2.09
+clifton,eastville_park,walk,67.3,5.38
+clifton,eastville_park,drive,17.4,5.81
+clifton,eastville_park,transit,34.8,6.24
+clifton,eastville_park,drive_no_caz,21.7,6.67
+clifton,st_andrews_park,walk,45.8,3.67
+clifton,st_andrews_park,drive,13.1,3.96
+clifton,st_andrews_park,transit,26.2,4.25
+clifton,st_andrews_park,drive_no_caz,16.4,4.55
+clifton,victoria_park,walk,49.6,3.97
+clifton,victoria_park,drive,13.9,4.29
+clifton,victoria_park,transit,27.7,4.6
+clifton,victoria_park,drive_no_caz,17.3,4.92
+clifton,castle_park,walk,30.7,2.45
+clifton,castle_park,drive,10.1,2.65
+clifton,castle_park,transit,20.2,2.85
+clifton,castle_park,drive_no_caz,,
+clifton,stoke_park,walk,87.0,6.96
+clifton,stoke_park,drive,21.4,7.52
+clifton,stoke_park,transit,42.6,8.08
+clifton,stoke_park,drive_no_caz,26.6,8.63
+city center,queens_square,walk,6.2,0.5
+city center,queens_square,drive,5.2,0.54
+city center,queens_square,transit,10.5,0.58
+city center,queens_square,drive_no_caz,,
+city center,brandon_hill,walk,8.9,0.72
+city center,brandon_hill,drive,5.8,0.77
+city center,brandon_hill,transit,11.6,0.83
+city center,brandon_hill,drive_no_caz,,
+city center,clifton_downs,walk,38.7,3.09
+city center,clifton_downs,drive,11.7,3.34
+city center,clifton_downs,transit,23.4,3.59
+city center,clifton_downs,drive_no_caz,14.6,3.84
+city center,eastville_park,walk,49.9,3.99
+city center,eastville_park,drive,13.9,4.31
+city center,eastville_park,transit,27.8,4.63
+city center,eastville_park,drive_no_caz,17.4,4.95
+city center,st_andrews_park,walk,38.7,3.1
+city center,st_andrews_park,drive,11.7,3.35
+city center,st_andrews_park,transit,23.4,3.59
+city center,st_andrews_park,drive_no_caz,14.6,3.84
+city center,victoria_park,walk,31.9,2.56
+city center,victoria_park,drive,10.4,2.76
+city center,victoria_park,transit,20.7,2.96
+city center,victoria_park,drive_no_caz,12.9,3.17
+city center,castle_park,walk,9.4,0.75
+city center,castle_park,drive,5.9,0.82
+city center,castle_park,transit,11.8,0.88
+city center,castle_park,drive_no_caz,,
+city center,stoke_park,walk,75.6,6.05
+city center,stoke_park,drive,19.1,6.53
+city center,stoke_park,transit,38.1,7.01
+city center,stoke_park,drive_no_caz,23.7,7.5

@@ -4,43 +4,56 @@ Run with:  streamlit run app.py
 """
 from __future__ import annotations
 
+import pandas as pd
 import streamlit as st
 
 from src import viz
-from src.loading import DataValidationError, QUALITY_COLS, load_dataset
-from src.scoring import CRITERIA, DEFAULT_CAZ_CHARGE, normalise_weights, score
-from src.viz import CRITERION_LABELS, QUALITY_LABELS
+from src.loading import DataValidationError, MODES, QUALITY_COLS, load_dataset
+from src.scoring import CRITERIA, normalise_weights, score
+from src.viz import CRITERION_LABELS, MODE_LABELS, QUALITY_LABELS
 
 st.set_page_config(page_title="Park Meetup Selector", page_icon="🌳", layout="wide")
 
 # Default criterion + quality sub-weights, and the persona presets that overwrite
 # them. Presets set both the six criterion weights and the five quality sub-weights.
+# "drive_no_caz" is driving while avoiding the Clean Air Zone (CAZ parks are N/A).
 DEFAULT_CRITERION_WEIGHTS = {
-    "quality": 0.30, "walk_time": 0.10, "drive_time": 0.20,
-    "transit_time": 0.15, "parking": 0.15, "caz": 0.10,
+    "quality": 0.30, "walk_time": 0.10, "drive_time": 0.15,
+    "drive_no_caz": 0.10, "transit_time": 0.15, "parking": 0.20,
 }
 DEFAULT_QUALITY_WEIGHTS = {c: 1.0 for c in QUALITY_COLS}
 
+_EQUAL_QUALITY = {"q_scenery": 1, "q_space": 1, "q_facilities": 1, "q_tree_cover": 1, "q_flatness": 1}
+
 PRESETS: dict[str, dict] = {
     "Driver": {
-        "criterion": {"quality": 0.25, "walk_time": 0.0, "drive_time": 0.30,
-                       "transit_time": 0.0, "parking": 0.25, "caz": 0.20},
-        "quality": {"q_scenery": 1, "q_space": 1, "q_facilities": 1, "q_climbing": 1, "q_family": 1},
+        # Happy to drive into the CAZ; weights normal drive time + parking.
+        "criterion": {"quality": 0.25, "walk_time": 0.0, "drive_time": 0.40,
+                       "drive_no_caz": 0.0, "transit_time": 0.0, "parking": 0.35},
+        "quality": _EQUAL_QUALITY,
+    },
+    "Driver · avoid CAZ": {
+        # Won't enter the CAZ; uses drive_no_caz, so CAZ parks drop out (N/A).
+        "criterion": {"quality": 0.25, "walk_time": 0.0, "drive_time": 0.0,
+                       "drive_no_caz": 0.40, "transit_time": 0.0, "parking": 0.35},
+        "quality": _EQUAL_QUALITY,
     },
     "Public transport": {
-        "criterion": {"quality": 0.30, "walk_time": 0.10, "drive_time": 0.0,
-                       "transit_time": 0.45, "parking": 0.0, "caz": 0.15},
-        "quality": {"q_scenery": 1, "q_space": 1, "q_facilities": 1, "q_climbing": 1, "q_family": 1},
+        "criterion": {"quality": 0.35, "walk_time": 0.10, "drive_time": 0.0,
+                       "drive_no_caz": 0.0, "transit_time": 0.55, "parking": 0.0},
+        "quality": _EQUAL_QUALITY,
     },
     "Family": {
         "criterion": {"quality": 0.40, "walk_time": 0.10, "drive_time": 0.20,
-                       "transit_time": 0.10, "parking": 0.15, "caz": 0.05},
-        "quality": {"q_scenery": 1, "q_space": 2, "q_facilities": 2, "q_climbing": 0, "q_family": 3},
+                       "drive_no_caz": 0.0, "transit_time": 0.10, "parking": 0.20},
+        # Flat, open, well-equipped ground for kids and games.
+        "quality": {"q_scenery": 1, "q_space": 2, "q_facilities": 2, "q_tree_cover": 1, "q_flatness": 3},
     },
-    "Climber": {
-        "criterion": {"quality": 0.45, "walk_time": 0.05, "drive_time": 0.25,
-                       "transit_time": 0.10, "parking": 0.15, "caz": 0.0},
-        "quality": {"q_scenery": 1, "q_space": 1, "q_facilities": 1, "q_climbing": 4, "q_family": 0},
+    "Shade & scenery": {
+        "criterion": {"quality": 0.50, "walk_time": 0.05, "drive_time": 0.25,
+                       "drive_no_caz": 0.0, "transit_time": 0.10, "parking": 0.10},
+        # Leafy, good-looking spots for a picnic in the shade.
+        "quality": {"q_scenery": 3, "q_space": 1, "q_facilities": 1, "q_tree_cover": 3, "q_flatness": 1},
     },
 }
 
@@ -62,8 +75,8 @@ def _apply_preset(name: str) -> None:
         st.session_state[f"qw_{c}"] = float(preset["quality"][c])
 
 
-def sidebar() -> tuple[dict[str, float], dict[str, float], str, float]:
-    """Render sidebar controls; return (weights, quality_weights, heatmap_mode, caz_charge)."""
+def sidebar() -> tuple[dict[str, float], dict[str, float]]:
+    """Render sidebar controls; return (weights, quality_weights)."""
     st.sidebar.title("🌳 Park Selector")
     st.sidebar.caption("Weight what matters to you — the ranking updates live.")
 
@@ -80,6 +93,10 @@ def sidebar() -> tuple[dict[str, float], dict[str, float], str, float]:
         weights[c] = st.sidebar.slider(
             CRITERION_LABELS[c], 0.0, 1.0, key=f"w_{c}", step=0.05
         )
+    st.sidebar.caption(
+        "“Drive (no CAZ)” avoids the Clean Air Zone, so parks inside the CAZ "
+        "are treated as unreachable (N/A) for that criterion."
+    )
 
     with st.sidebar.expander("Quality sub-weights"):
         quality_weights = {}
@@ -88,14 +105,7 @@ def sidebar() -> tuple[dict[str, float], dict[str, float], str, float]:
                 QUALITY_LABELS[c], 0.0, 4.0, key=f"qw_{c}", step=1.0
             )
 
-    with st.sidebar.expander("Assumptions"):
-        caz_charge = st.number_input(
-            "CAZ daily charge (£)", min_value=0.0, value=DEFAULT_CAZ_CHARGE, step=1.0
-        )
-        st.caption("Bristol Clean Air Zone D — non-compliant private car.")
-
-    heatmap_mode = st.session_state.get("heatmap_mode", "drive")
-    return weights, quality_weights, heatmap_mode, caz_charge
+    return weights, quality_weights
 
 
 def main() -> None:
@@ -106,9 +116,9 @@ def main() -> None:
         st.stop()
 
     _init_state(dataset.default_weights)
-    weights, quality_weights, _, caz_charge = sidebar()
+    weights, quality_weights = sidebar()
 
-    scored = score(dataset, weights, quality_weights, caz_charge)
+    scored = score(dataset, weights, quality_weights)
     norm_weights = normalise_weights(weights)
     top = scored.iloc[0]
 
@@ -133,10 +143,12 @@ def main() -> None:
     with tab_compare:
         st.subheader("Travel-time heatmap")
         mode = st.radio(
-            "Mode", ["walk", "drive", "transit"], horizontal=True, key="heatmap_mode",
-            format_func=str.title,
+            "Mode", MODES, horizontal=True, key="heatmap_mode",
+            format_func=lambda m: MODE_LABELS[m],
         )
         st.plotly_chart(viz.travel_heatmap(dataset, mode), width="stretch")
+        if mode == "drive_no_caz":
+            st.caption("Blank cells = parks inside the CAZ (N/A when avoiding the zone).")
 
         st.subheader("Park quality profiles")
         default_sel = list(scored.index[:3])
@@ -168,10 +180,15 @@ def _metrics_table(scored):
     cols = {
         "rank": "Rank", "name": "Park", "score": "Score",
         "quality": "Quality", "walk_time": "Walk (min)", "drive_time": "Drive (min)",
-        "transit_time": "Transit (min)", "parking": "Parking penalty", "caz": "CAZ (£)",
+        "drive_no_caz": "Drive no-CAZ (min)", "transit_time": "Transit (min)",
+        "parking": "Parking penalty",
     }
-    df = scored.reset_index()[list(cols)].rename(columns=cols)
-    return df.round(1).sort_values("Rank")
+    df = scored.reset_index()[list(cols)].rename(columns=cols).round(1).sort_values("Rank")
+    # Show CAZ parks (NaN drive_no_caz) explicitly as N/A.
+    df["Drive no-CAZ (min)"] = df["Drive no-CAZ (min)"].map(
+        lambda v: "N/A" if pd.isna(v) else f"{v:.1f}"
+    )
+    return df
 
 
 if __name__ == "__main__":
